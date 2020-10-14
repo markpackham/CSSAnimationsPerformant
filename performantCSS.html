@@ -13,12 +13,13 @@
         overflow: hidden;
         background-color: #ccc;
         padding: 0.25rem;
-        /* animation: margin-down 1s infinite alternate linear; */
-        /* animation: translate-down 1s infinite alternate linear; */
         /* animation: color-down 1s infinite alternate linear; */
+        /* animation: opacity-down 1s infinite alternate linear; */
+        /* animation: margin-down 1s infinite alternate linear; */
+        animation: translate-down 1s infinite alternate linear;
       }
 
-      /* a little rendering work but a a lot of painting work */
+      /* a little rendering but a lot of painting, not super fast or super slow */
       @keyframes color-down {
         from {
           color: black;
@@ -28,8 +29,19 @@
         }
       }
 
-      /* Poor performance with choppy animation - time wasted on rendering and painting */
-      /* anytime you do a layout in css you have to do painting as well which isn't needed here */
+      /* as far as painting goes, opacity is one of the fastest paint operations */
+      @keyframes opacity-down {
+        from {
+          opacity: 0.1;
+        }
+        to {
+          opacity: 0.9;
+        }
+      }
+
+      /* Poor performance with choppy animation - time wasted on rendering/layout and painting */
+      /* rendering is more resource intensive than painting */
+      /* anytime you do a layout such as rendering in css you have to do painting as well which isn't needed here */
       @keyframes margin-down {
         from {
           margin-top: 0;
@@ -40,7 +52,8 @@
         }
       }
 
-      /* Good performance animaiton, doesn't impact layout (rendering & painting), instead effects compositor */
+      /* Good performance animaiton, doesn't impact layout & paint, instead effects compositor */
+      /* use translate and transform for animations */
       @keyframes translate-down {
         from {
           transform: translateY(0);
